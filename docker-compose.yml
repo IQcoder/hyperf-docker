@@ -1,0 +1,61 @@
+version: "3"
+
+networks:
+  hyperf:
+    driver: bridge
+
+services:
+  redis:
+    container_name: hyper_redis
+    image: redis:latest
+    restart: always
+    volumes:
+      - ${REDIS_DIR}/data:/data
+      - ${REDIS_DIR}/config/redis.conf:/usr/local/etc/redis/redis.conf:ro
+      - ${REDIS_DIR}/log/redis.log:/var/log/redis/redis.log:rw
+    ports:
+      - "6379:6379"
+    networks:
+      - hyperf
+    tty: true
+
+  mysql:
+    container_name: hyper_mysql
+    image: mysql:5.7
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: hyperf
+      MYSQL_USER: hyperf
+      MYSQL_PASSWORD: hyperf
+    volumes:
+      # 外部数据卷
+      - ${MYSQL_DIR}/data:/var/lib/mysql
+      # 外部初始化文件，文件名必须以 .sh 或 .sql 结尾
+      - ${MYSQL_DIR}/init:/docker-entrypoint-initdb.d
+      # 外部配置文件
+      - ${MYSQL_DIR}/config/mysql.cnf:/etc/mysql/conf.d/mysql.cnf:ro
+      - ${MYSQL_DIR}/log:/var/log/mysql:rw
+    ports:
+      - "3306:3306"
+    networks:
+      - hyperf
+    command:
+      - --character-set-server=utf8mb4
+      - --collation-server=utf8mb4_unicode_ci
+    tty: true
+
+  hyperf:
+    container_name: hyperf
+    build:
+      context: ${HYPERF}
+    volumes:
+      - ${HYPERF}/hyperf-skeleton:/hyperf-skeleton
+    ports:
+      - "9501:9501"
+      - "9502:9502"
+      - "9200:9200"
+    networks:
+      - hyperf
+#    command: php /hyperf-skeleton/bin/hyperf.php start
+    tty: true
