@@ -51,7 +51,8 @@ COPY hyperf-skeleton /hyperf-skeleton
 
 WORKDIR /hyperf-skeleton
 
-RUN rm -rf /hyperf-skeleton/runtime/container/proxy
+RUN rm -rf /hyperf-skeleton/runtime/container/proxy \
+    && bash /home/resource/create.sh
 
 EXPOSE 9501
 
