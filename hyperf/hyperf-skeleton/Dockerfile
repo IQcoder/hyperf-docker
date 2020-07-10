@@ -5,11 +5,8 @@
 # @contact  group@hyperf.io
 # @license  https://github.com/hyperf-cloud/hyperf/blob/master/LICENSE
 
-FROM hyperf/hyperf:latest
-LABEL maintainer="Hyperf Developers <group@hyperf.io>" version="1.0" license="MIT"
-
-# 拷贝需要用到的资源
-COPY resource /home/resource
+FROM hyperf/hyperf:7.2-alpine-v3.9-cli
+LABEL maintainer="Hyperf Developers <group@hyperf.io>" version="1.0" license="MIT" app.name="Hyperf"
 
 ##
 # ---------- env settings ----------
@@ -18,19 +15,22 @@ COPY resource /home/resource
 ARG timezone
 
 ENV TIMEZONE=${timezone:-"Asia/Shanghai"} \
-    COMPOSER_VERSION=1.8.6 \
-    APP_ENV=prod
+    COMPOSER_VERSION=1.9.1 \
+    APP_ENV=prod \
+    SCAN_CACHEABLE=(true)
 
 # update
 RUN set -ex \
     && apk update \
     # install composer
-    && mv /home/resource/composer.phar /usr/local/bin/composer \
-    && chmod u+x /usr/local/bin/composer \
-    && composer config -g repo.packagist composer https://mirrors.aliyun.com/composer \
+    && cd /tmp \
+    && wget https://github.com/composer/composer/releases/download/${COMPOSER_VERSION}/composer.phar \
+    && chmod u+x composer.phar \
+    && mv composer.phar /usr/local/bin/composer \
     # show php version and extensions
     && php -v \
     && php -m \
+    && php --ri swoole \
     #  ---------- some config ----------
     && cd /etc/php7 \
     # - config PHP
@@ -39,7 +39,7 @@ RUN set -ex \
         echo "post_max_size=108M"; \
         echo "memory_limit=1024M"; \
         echo "date.timezone=${TIMEZONE}"; \
-    } | tee conf.d/99-overrides.ini \
+    } | tee conf.d/99_overrides.ini \
     # - config timezone
     && ln -sf /usr/share/zoneinfo/${TIMEZONE} /etc/localtime \
     && echo "${TIMEZONE}" > /etc/timezone \
@@ -47,12 +47,15 @@ RUN set -ex \
     && rm -rf /var/cache/apk/* /tmp/* /usr/share/man \
     && echo -e "\033[42;37m Build Completed :).\033[0m\n"
 
-COPY hyperf-skeleton /hyperf-skeleton
+WORKDIR /opt/www
 
-WORKDIR /hyperf-skeleton
+# Composer Cache
+# COPY ./composer.* /opt/www/
+# RUN composer install --no-dev --no-scripts
 
-RUN rm -rf /hyperf-skeleton/runtime/container/proxy
+COPY . /opt/www
+RUN composer install --no-dev -o && php bin/hyperf.php
 
 EXPOSE 9501
 
-ENTRYPOINT ["php", "/hyperf-skeleton/bin/hyperf.php", "start"]
+ENTRYPOINT ["php", "/opt/www/bin/hyperf.php", "start"]
