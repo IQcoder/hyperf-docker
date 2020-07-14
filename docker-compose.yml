@@ -47,15 +47,14 @@ services:
 
   hyperf:
     container_name: hyperf
-    build:
-      context: ${HYPERF}
+    image: hyperf/hyperf:latest
     volumes:
-      - ${HYPERF}/hyperf-skeleton:/hyperf-skeleton
+      - .:/opt/www
     ports:
       - "9501:9501"
       - "9502:9502"
       - "9200:9200"
     networks:
       - hyperf
-#    command: php /hyperf-skeleton/bin/hyperf.php start
+#    command: /bin/bash -c "rm -rf /opt/www/hyperf/runtime/container && php /opt/www/hyperf/bin/hyperf.php start"
     tty: true

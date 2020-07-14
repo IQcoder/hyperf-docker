@@ -26,6 +26,7 @@
         "hyperf/process": "~2.0.0",
         "hyperf/redis": "~2.0.0",
         "hyperf/constants": "~2.0.0",
+        "hyperf/async-queue": "~2.0.0",
         "hyperf/model-cache": "~2.0.0",
         "hyperf/tracer": "~2.0.0"
     },
