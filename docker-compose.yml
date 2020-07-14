@@ -56,5 +56,5 @@ services:
       - "9200:9200"
     networks:
       - hyperf
-#    command: /bin/bash -c "rm -rf /opt/www/hyperf/runtime/container && php /opt/www/hyperf/bin/hyperf.php start"
+    command: /bin/bash -c "rm -rf /opt/www/hyperf/runtime/container && php /opt/www/hyperf/bin/hyperf.php start"
     tty: true
