@@ -1,4 +1,75 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="PhpInterpreters">
+    <interpreters>
+      <interpreter home="docker-compose://[/Users/chenchangqin/Documents/hyperf-docker/docker-compose.yml]:hyperf/php" id="a6cb316b-3605-4c6b-a56d-4ff091fd4663" name="hyperf/hyperf:latest" debugger_id="php.debugger.XDebug">
+        <remote_data DOCKER_ACCOUNT_NAME="Docker" DOCKER_COMPOSE_SERVICE_NAME="hyperf" DOCKER_REMOTE_PROJECT_PATH="/opt/project" INTERPRETER_PATH="php" HELPERS_PATH="/opt/.phpstorm_helpers" INITIALIZED="false" VALID="true">
+          <dockerComposeConfigurationPaths>
+            <item value="$PROJECT_DIR$/docker-compose.yml" />
+          </dockerComposeConfigurationPaths>
+          <envs />
+        </remote_data>
+      </interpreter>
+    </interpreters>
+  </component>
+  <component name="PhpInterpretersPhpInfoCache">
+    <phpInfoCache>
+      <interpreter name="hyperf/hyperf:latest">
+        <phpinfo binary_type="PHP" php_cli="/usr/bin/php7" path_separator=":" version="7.2.27">
+          <additional_php_ini>/etc/php7/conf.d/00_bcmath.ini, /etc/php7/conf.d/00_ctype.ini, /etc/php7/conf.d/00_curl.ini, /etc/php7/conf.d/00_dom.ini, /etc/php7/conf.d/00_fileinfo.ini, /etc/php7/conf.d/00_gd.ini, /etc/php7/conf.d/00_iconv.ini, /etc/php7/conf.d/00_json.ini, /etc/php7/conf.d/00_mbstring.ini, /etc/php7/conf.d/00_openssl.ini, /etc/php7/conf.d/00_pcntl.ini, /etc/php7/conf.d/00_pdo.ini, /etc/php7/conf.d/00_posix.ini, /etc/php7/conf.d/00_session.ini, /etc/php7/conf.d/00_simplexml.ini, /etc/php7/conf.d/00_sockets.ini, /etc/php7/conf.d/00_sodium.ini, /etc/php7/conf.d/00_sysvmsg.ini, /etc/php7/conf.d/00_sysvsem.ini, /etc/php7/conf.d/00_sysvshm.ini, /etc/php7/conf.d/00_tokenizer.ini, /etc/php7/conf.d/00_xml.ini, /etc/php7/conf.d/00_xmlwriter.ini, /etc/php7/conf.d/00_zip.ini, /etc/php7/conf.d/01_mysqlnd.ini, /etc/php7/conf.d/01_pdo_sqlite.ini, /etc/php7/conf.d/01_phar.ini, /etc/php7/conf.d/01_xmlreader.ini, /etc/php7/conf.d/02_pdo_mysql.ini, /etc/php7/conf.d/10_igbinary.ini, /etc/php7/conf.d/20_redis.ini, /etc/php7/conf.d/50_swoole.ini</additional_php_ini>
+          <configuration_file>/etc/php7/php.ini</configuration_file>
+          <configuration_options>
+            <configuration_option name="include_path" value=".:/usr/share/php7" />
+          </configuration_options>
+          <debuggers />
+          <loaded_extensions>
+            <extension name="Core" />
+            <extension name="PDO" />
+            <extension name="Phar" />
+            <extension name="Reflection" />
+            <extension name="SPL" />
+            <extension name="SimpleXML" />
+            <extension name="bcmath" />
+            <extension name="ctype" />
+            <extension name="curl" />
+            <extension name="date" />
+            <extension name="dom" />
+            <extension name="fileinfo" />
+            <extension name="filter" />
+            <extension name="gd" />
+            <extension name="hash" />
+            <extension name="iconv" />
+            <extension name="igbinary" />
+            <extension name="json" />
+            <extension name="libxml" />
+            <extension name="mbstring" />
+            <extension name="mysqlnd" />
+            <extension name="openssl" />
+            <extension name="pcntl" />
+            <extension name="pcre" />
+            <extension name="pdo_mysql" />
+            <extension name="pdo_sqlite" />
+            <extension name="posix" />
+            <extension name="readline" />
+            <extension name="redis" />
+            <extension name="session" />
+            <extension name="sockets" />
+            <extension name="sodium" />
+            <extension name="standard" />
+            <extension name="swoole" />
+            <extension name="sysvmsg" />
+            <extension name="sysvsem" />
+            <extension name="sysvshm" />
+            <extension name="tokenizer" />
+            <extension name="xml" />
+            <extension name="xmlreader" />
+            <extension name="xmlwriter" />
+            <extension name="zip" />
+            <extension name="zlib" />
+          </loaded_extensions>
+        </phpinfo>
+      </interpreter>
+    </phpInfoCache>
+  </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="7.2" />
 </project>
