@@ -15,24 +15,24 @@ use Hyperf\Cache\Annotation\CachePut;
 
 class UserService
 {
-    /**
-     * @Cacheable(prefix="user", ttl=9000, listener="user-update")
-     */
+
+
     public function user(int $id)
     {
-        $user = User::query()->where('id',$id)->first();
+        $user = User::findFromCache($id);
 
-        if($user){
-            return $user->toArray();
-        }
-
-        return null;
+        return $user;
     }
 
-    /**
-     * @CachePut(prefix="user", ttl=3601)
-     */
-    public function updateUser(int $id,array $data)
+    public function userIndex()
+    {
+        $user = User::query()->paginate(10);
+        return $user;
+    }
+
+
+
+    public function userUpdate(int $id, array $data)
     {
 
         $user = User::query()->find($id);
@@ -43,6 +43,15 @@ class UserService
 
         return [
             'user' => $user->toArray(),
+        ];
+    }
+
+
+    public function userDelete(int $id)
+    {
+        $user = User::query()->find($id);
+        return [
+            'user' => $user
         ];
     }
 }

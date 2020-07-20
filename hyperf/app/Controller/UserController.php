@@ -12,7 +12,6 @@ namespace App\Controller;
 use App\Service\UserService;
 use Hyperf\Di\Annotation\Inject;
 use Hyperf\HttpServer\Annotation\Controller;
-use Hyperf\HttpServer\Annotation\RequestMapping;
 use Hyperf\HttpServer\Contract\RequestInterface;
 
 /**
@@ -29,20 +28,24 @@ class UserController extends AbstractController
 
     /**
      * @param RequestInterface $request
-     * @return string
-     * @RequestMapping(path="index",methods={"get"})
+     * @return array
      */
     public function index(RequestInterface $request)
     {
-        $id = $request->getMethod();
-        return $id;
+        $method = $request->getMethod();
+
+        $result = $this->userService->userIndex();
+
+        return [
+            'method' => $method,
+            'result' => $result
+        ];
     }
 
     /**
      * @param RequestInterface $request
      * @param int              $id
      * @return array
-     * @RequestMapping(path="/user/{id:\d+}",methods={"get"})
      */
     public function info(RequestInterface $request,int $id)
     {
@@ -59,18 +62,35 @@ class UserController extends AbstractController
      * @param RequestInterface $request
      * @param int              $id
      * @return array
-     * @RequestMapping(path="update/[{id:\d+}]",methods={"put"})
      */
     public function update(RequestInterface $request,int $id)
     {
         $data = $request->post();
-        $result = $this->userService->updateUser($id,$data);
+        $result = $this->userService->userUpdate($id,$data);
 
         $method = $request->getMethod();
         return [
             'method' => $method,
             'result' => $result
         ];
+    }
+
+    /**
+     * @param int $id
+     * @return array
+     */
+    public function delete(int $id)
+    {
+        $result = $this->userService->userDelete($id);
+
+        return [
+            'result' => $result
+        ];
+    }
+
+    public function create(RequestInterface $request)
+    {
+        $data = $request->post();
     }
 
 }

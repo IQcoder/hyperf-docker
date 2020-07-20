@@ -11,4 +11,12 @@ declare(strict_types=1);
  */
 use Hyperf\HttpServer\Router\Router;
 
+# index
 Router::addRoute(['GET', 'POST', 'HEAD'], '/', 'App\Controller\IndexController@index');
+# user
+Router::addGroup('/user/',function () {
+    Router::get('index','App\Controller\UserController@index');
+    Router::get('[{id:\d+}]','App\Controller\UserController@info');
+    Router::put('[{id:\d+}]','App\Controller\UserController@update');
+    Router::delete('[{id:\d+}]','App\Controller\UserController@delete');
+});
