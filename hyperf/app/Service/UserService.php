@@ -10,29 +10,56 @@ declare(strict_types=1);
 namespace App\Service;
 
 use App\Model\User;
-use Hyperf\Cache\Annotation\Cacheable;
-use Hyperf\Cache\Annotation\CachePut;
+use App\Model\UserAuth;
+use Hyperf\DbConnection\Db;
 
 class UserService
 {
 
-
-    public function user(int $id)
-    {
-        $user = User::findFromCache($id);
-
-        return $user;
-    }
-
     public function userIndex()
     {
-        $user = User::query()->paginate(10);
+        $user = User::query()->paginate(2);
         return $user;
     }
 
+    /**
+     * @param int $id
+     * @return array
+     */
+    public function userInfo(int $id): array
+    {
+        $user = User::findFromCache($id);
+        return [
+            'user' => $user->toArray(),
+            'auth' => $user->auth
+        ];
+    }
 
+    public function createUser(array $data)
+    {
+        Db::beginTransaction();
+        try {
+            $user           = new User();
+            $user->username = $data['username'];
+            $user->save();
+            $auth                = new UserAuth();
+            $auth->user_id       = $user->id;
+            $auth->identity_type = $data['identity_type'];
+            $auth->identifier    = $data['identifier'];
+            $auth->save();
+            Db::commit();
+        } catch (\Throwable $exception) {
+            Db::rollBack();
+        }
+        return $user;
+    }
 
-    public function userUpdate(int $id, array $data)
+    /**
+     * @param int   $id
+     * @param array $data
+     * @return array
+     */
+    public function updateUser(int $id, array $data)
     {
 
         $user = User::query()->find($id);
@@ -43,11 +70,15 @@ class UserService
 
         return [
             'user' => $user->toArray(),
+            'auth' => $user->auth
         ];
     }
 
-
-    public function userDelete(int $id)
+    /**
+     * @param int $id
+     * @return array
+     */
+    public function deleteUser(int $id)
     {
         $user = User::query()->find($id);
         return [

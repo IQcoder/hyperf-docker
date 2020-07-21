@@ -12,7 +12,6 @@ namespace App\Controller;
 use App\Service\UserService;
 use Hyperf\Di\Annotation\Inject;
 use Hyperf\HttpServer\Annotation\Controller;
-use Hyperf\HttpServer\Contract\RequestInterface;
 
 /**
  * @Controller()
@@ -27,12 +26,11 @@ class UserController extends AbstractController
     private $userService;
 
     /**
-     * @param RequestInterface $request
      * @return array
      */
-    public function index(RequestInterface $request)
+    public function index()
     {
-        $method = $request->getMethod();
+        $method = $this->request->getMethod();
 
         $result = $this->userService->userIndex();
 
@@ -43,15 +41,14 @@ class UserController extends AbstractController
     }
 
     /**
-     * @param RequestInterface $request
-     * @param int              $id
+     * @param int $id
      * @return array
      */
-    public function info(RequestInterface $request,int $id)
+    public function info(int $id)
     {
-        $result = $this->userService->user($id);
+        $result = $this->userService->userInfo($id);
 
-        $method = $request->getMethod();
+        $method = $this->request->getMethod();
         return [
             'method' => $method,
             'result' => $result
@@ -59,16 +56,15 @@ class UserController extends AbstractController
     }
 
     /**
-     * @param RequestInterface $request
-     * @param int              $id
+     * @param int $id
      * @return array
      */
-    public function update(RequestInterface $request,int $id)
+    public function update(int $id)
     {
-        $data = $request->post();
-        $result = $this->userService->userUpdate($id,$data);
+        $data   = $this->request->post();
+        $result = $this->userService->updateUser($id, $data);
 
-        $method = $request->getMethod();
+        $method = $this->request->getMethod();
         return [
             'method' => $method,
             'result' => $result
@@ -81,16 +77,26 @@ class UserController extends AbstractController
      */
     public function delete(int $id)
     {
-        $result = $this->userService->userDelete($id);
+        $result = $this->userService->deleteUser($id);
 
         return [
             'result' => $result
         ];
     }
 
-    public function create(RequestInterface $request)
+    /**
+     * @return array
+     */
+    public function create()
     {
-        $data = $request->post();
+        $data   = $this->request->post();
+        $result = $this->userService->createUser($data);
+
+        $method = $this->request->getMethod();
+        return [
+            'method' => $method,
+            'result' => $result
+        ];
     }
 
 }

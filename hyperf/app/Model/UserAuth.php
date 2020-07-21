@@ -4,7 +4,8 @@ declare (strict_types=1);
 
 namespace App\Model;
 
-use Crypto\Hash;
+use App\Cast\Hash;
+use Hyperf\Database\Model\SoftDeletes;
 
 /**
  * @property int            $id
@@ -17,6 +18,13 @@ use Crypto\Hash;
  */
 class UserAuth extends Model
 {
+    use SoftDeletes;
+
+    const IDENTITY_TYPE_ACCOUNT = 1;
+    const IDENTITY_TYPE_MOBILE = 2;
+    const IDENTITY_TYPE_WECHAT = 3;
+
+
     /**
      * The table associated with the model.
      *
@@ -35,4 +43,5 @@ class UserAuth extends Model
      * @var array
      */
     protected $casts = ['id' => 'integer', 'user_id' => 'integer', 'identity_type' => 'integer', 'created_at' => 'datetime', 'updated_at' => 'datetime', 'identifier' => Hash::class . ':sha256'];
+
 }

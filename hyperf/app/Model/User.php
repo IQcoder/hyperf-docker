@@ -31,4 +31,10 @@ class User extends Model
      * @var array
      */
     protected $casts = ['id' => 'integer', 'status' => 'integer', 'admin' => 'integer', 'created_at' => 'datetime', 'updated_at' => 'datetime'];
+
+    public function auth()
+    {
+        return $this->hasMany(UserAuth::class,'user_id','id');
+    }
+
 }
