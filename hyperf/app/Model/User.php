@@ -9,7 +9,7 @@ namespace App\Model;
  * @property int $status 
  * @property int $admin 
  * @property \Carbon\Carbon $created_at 
- * @property \Carbon\Carbon $updated_at 
+ * @property \Carbon\Carbon $updated_at
  */
 class User extends Model
 {

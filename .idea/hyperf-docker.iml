@@ -53,6 +53,7 @@
       <excludeFolder url="file://$MODULE_DIR$/hyperf/vendor/laminas/laminas-mime" />
       <excludeFolder url="file://$MODULE_DIR$/hyperf/vendor/laminas/laminas-stdlib" />
       <excludeFolder url="file://$MODULE_DIR$/hyperf/vendor/laminas/laminas-zendframework-bridge" />
+      <excludeFolder url="file://$MODULE_DIR$/hyperf/vendor/lcobucci/jwt" />
       <excludeFolder url="file://$MODULE_DIR$/hyperf/vendor/mockery/mockery" />
       <excludeFolder url="file://$MODULE_DIR$/hyperf/vendor/monolog/monolog" />
       <excludeFolder url="file://$MODULE_DIR$/hyperf/vendor/myclabs/deep-copy" />
@@ -69,6 +70,7 @@
       <excludeFolder url="file://$MODULE_DIR$/hyperf/vendor/phpdocumentor/reflection-common" />
       <excludeFolder url="file://$MODULE_DIR$/hyperf/vendor/phpdocumentor/reflection-docblock" />
       <excludeFolder url="file://$MODULE_DIR$/hyperf/vendor/phpdocumentor/type-resolver" />
+      <excludeFolder url="file://$MODULE_DIR$/hyperf/vendor/phper666/jwt-auth" />
       <excludeFolder url="file://$MODULE_DIR$/hyperf/vendor/phpoption/phpoption" />
       <excludeFolder url="file://$MODULE_DIR$/hyperf/vendor/phpspec/prophecy" />
       <excludeFolder url="file://$MODULE_DIR$/hyperf/vendor/phpstan/phpstan" />

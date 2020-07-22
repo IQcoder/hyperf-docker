@@ -11,6 +11,7 @@ namespace App\Controller;
 
 use App\Service\UserAuthService;
 use Hyperf\Di\Annotation\Inject;
+use Phper666\JwtAuth\Jwt;
 
 
 class UserAuthController extends AbstractController
@@ -20,7 +21,12 @@ class UserAuthController extends AbstractController
      * @Inject
      * @var UserAuthService
      */
-    public $userAuthService;
+    protected $userAuthService;
+    /**
+     * @Inject
+     * @var Jwt
+     */
+    protected $jwt;
 
     /**
      * 创建密钥
@@ -47,6 +53,8 @@ class UserAuthController extends AbstractController
      */
     public function update(int $id)
     {
+        $auth = $this->jwt->getParserData();
+
         $data = $this->request->post();
         $result = $this->userAuthService->updateAuth($id,$data);
 

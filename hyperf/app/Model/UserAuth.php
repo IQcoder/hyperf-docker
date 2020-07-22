@@ -12,6 +12,7 @@ use Hyperf\Database\Model\SoftDeletes;
  * @property int            $user_id
  * @property int            $identity_type
  * @property string         $identifier
+ * @property string         $credential
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
  * @property string         $deleted_at
@@ -19,12 +20,9 @@ use Hyperf\Database\Model\SoftDeletes;
 class UserAuth extends Model
 {
     use SoftDeletes;
-
     const IDENTITY_TYPE_ACCOUNT = 1;
     const IDENTITY_TYPE_MOBILE = 2;
     const IDENTITY_TYPE_WECHAT = 3;
-
-
     /**
      * The table associated with the model.
      *
@@ -42,6 +40,5 @@ class UserAuth extends Model
      *
      * @var array
      */
-    protected $casts = ['id' => 'integer', 'user_id' => 'integer', 'identity_type' => 'integer', 'created_at' => 'datetime', 'updated_at' => 'datetime', 'identifier' => Hash::class . ':sha256'];
-
+    protected $casts = ['id' => 'integer', 'user_id' => 'integer', 'identity_type' => 'integer', 'created_at' => 'datetime', 'updated_at' => 'datetime', 'credential' => Hash::class.':sha256'];
 }

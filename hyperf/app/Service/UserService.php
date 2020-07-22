@@ -45,7 +45,8 @@ class UserService
             $auth                = new UserAuth();
             $auth->user_id       = $user->id;
             $auth->identity_type = $data['identity_type'];
-            $auth->identifier    = $data['identifier'];
+            $auth->identifier    = $data['username'];
+            $auth->credential    = $data['password'];
             $auth->save();
             Db::commit();
         } catch (\Throwable $exception) {

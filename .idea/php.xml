@@ -130,6 +130,8 @@
       <path value="$PROJECT_DIR$/hyperf/vendor/swoole/ide-helper" />
       <path value="$PROJECT_DIR$/hyperf/vendor/phpspec/prophecy" />
       <path value="$PROJECT_DIR$/hyperf/vendor/composer" />
+      <path value="$PROJECT_DIR$/hyperf/vendor/lcobucci/jwt" />
+      <path value="$PROJECT_DIR$/hyperf/vendor/phper666/jwt-auth" />
     </include_path>
   </component>
   <component name="PhpInterpreters">

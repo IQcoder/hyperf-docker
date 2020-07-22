@@ -25,6 +25,7 @@ class UserAuthService
         $auth->user_id       = $id;
         $auth->identity_type = $data['identity_type'];
         $auth->identifier    = $data['identifier'];
+        $auth->credential    = $data['password'];
         $auth->save();
 
         return $auth;
@@ -37,11 +38,25 @@ class UserAuthService
      */
     public function updateAuth(int $id, array $data)
     {
-        $auth = UserAuth::query()->where('id',$id)->first();
-        $auth->identifier = $data['identifier'];
+        $auth             = UserAuth::query()->where('id', $id)->first();
+        $auth->credential = $data['password'];
         $auth->save();
 
         return $auth;
+    }
+
+    /**
+     * 校验密码
+     * @param array $data
+     * @return bool|\Hyperf\Database\Model\Builder|\Hyperf\Database\Model\Model|object|null
+     */
+    public function validatePassword(array $data)
+    {
+        $auth = UserAuth::query()->where('identifier', $data['username'])->first();
+        if (password_verify($data['password'], $auth->credential)) {
+            return $auth;
+        }
+        return false;
     }
 
 }
