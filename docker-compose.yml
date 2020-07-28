@@ -72,5 +72,22 @@ services:
       - "9200:9200"
     networks:
       - hyperf
-#    command: /bin/bash -c "rm -rf /opt/www/hyperf/runtime/container && php /opt/www/hyperf/bin/hyperf.php start"
+    #    command: /bin/bash -c "rm -rf /opt/www/hyperf/runtime/container && php /opt/www/hyperf/bin/hyperf.php start"
+    tty: true
+
+
+  node:
+    container_name: hyperf_node
+    image: node:latest
+    user: "node"
+    working_dir: /home/node/app
+    volumes:
+      - ./app:/home/node/app
+    expose:
+      - "8081"
+    ports:
+      - "9527:9527"
+    networks:
+      - hyperf
+    command: "npm start"
     tty: true
